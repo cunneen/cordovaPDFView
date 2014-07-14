@@ -66,6 +66,12 @@
                             "xml": "true",
                             "count": 1
                         }
+                    ],
+                    "MessageUI.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
                     ]
                 }
             },
@@ -143,6 +149,10 @@
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"EmailComposer\"><param name=\"ios-package\" value=\"APPEmailComposer\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -205,6 +215,9 @@
             "PACKAGE_NAME": "net.cunneen.CordovaJSPDFExample"
         },
         "com.phonegap.plugins.fileopener": {
+            "PACKAGE_NAME": "net.cunneen.CordovaJSPDFExample"
+        },
+        "de.appplant.cordova.plugin.email-composer": {
             "PACKAGE_NAME": "net.cunneen.CordovaJSPDFExample"
         }
     },

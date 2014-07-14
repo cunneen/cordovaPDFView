@@ -75,6 +75,10 @@
                         {
                             "xml": "<feature name=\"FileOpener\"><param name=\"android-package\" value=\"com.phonegap.plugins.fileopener.FileOpener\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"EmailComposer\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.emailcomposer.EmailComposer\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -130,6 +134,12 @@
                     "/manifest": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/manifest/application": [
+                        {
+                            "xml": "<provider android:authorities=\"net.cunneen.CordovaJSPDFExample.plugin.emailcomposer.attachmentprovider\" android:name=\"de.appplant.cordova.plugin.emailcomposer.AttachmentProvider\"></provider>",
                             "count": 1
                         }
                     ]
@@ -193,6 +203,9 @@
             "PACKAGE_NAME": "net.cunneen.CordovaJSPDFExample"
         },
         "com.phonegap.plugins.fileopener": {
+            "PACKAGE_NAME": "net.cunneen.CordovaJSPDFExample"
+        },
+        "de.appplant.cordova.plugin.email-composer": {
             "PACKAGE_NAME": "net.cunneen.CordovaJSPDFExample"
         }
     },

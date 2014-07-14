@@ -60,6 +60,10 @@ var app = {
         app.fileOps.filenames.push("myCordovaJSPDFExample.pdf"); // filename for handlers to use.
         app.fileOps.initFS(app.fileOps.openPDF, app.fileOps.errorHandler);
       });
+      $('#emailPDFButton').on('click', function() {
+        app.fileOps.filenames.push("myCordovaJSPDFExample.pdf"); // filename for handlers to use.
+        app.fileOps.initFS(app.fileOps.emailPDF, app.fileOps.errorHandler);
+      });
     });
   },
   fileOps: {
@@ -85,7 +89,7 @@ var app = {
       var doc = new jsPDF();
       doc.setFontSize(14);
 
-      doc.text(20, 20, 'Hello world! ' + new Date().toLocaleString());
+      doc.text(20, 100, 'Hello world! ' + new Date().toLocaleString());
       var data = doc.output();
       var buffer = new ArrayBuffer(data.length);
       var array = new Uint8Array(buffer);
@@ -93,7 +97,31 @@ var app = {
         array[i] = data.charCodeAt(i);
       }
       writer.write(buffer);
-
+      navigator.notification.alert("PDF has now been written.",function(button){}, "Done","Hooray!");
+    },
+    gotPDFForEmailing: function(fileEntry) {
+      console.log('gotPDFForEmailing');
+      console.log('fileEntry is: ');
+      console.log(fileEntry);
+      // get the URL of the file
+      var filePath = fileEntry.toURL();
+      var fileName = fileEntry.name;
+      var attachments = [filePath];
+      
+      window.plugin.email.isServiceAvailable(
+              function(isAvailable) {
+                if (isAvailable) {
+                  window.plugin.email.open({
+                    to: ['mike@example.com'],
+                    cc: ['cc@example.com'],
+                    bcc: ['bcc1@example.com', 'bcc2@example.com'],
+                    subject: 'Emailing: ' + fileName,
+                    body: 'Sample PDF from Cordova is attached.',
+                    attachments: attachments
+                  });
+                }
+              }
+      );
     },
     gotPDFForReading: function(fileEntry) {
       console.log('gotPDFForReading');
@@ -148,6 +176,11 @@ var app = {
       console.log('openPDF');
       fileSystem.root.getFile(app.fileOps.filenames.shift(), {create: false, exclusive: false}, app.fileOps.gotPDFForReading, app.fileOps.errorHandler);
 
+    },
+    emailPDF: function(fileSystem) {
+      console.log('emailing PDF');
+      
+      fileSystem.root.getFile(app.fileOps.filenames.shift(), {create: false, exclusive: false}, app.fileOps.gotPDFForEmailing, app.fileOps.errorHandler);
     }
   }
 };
